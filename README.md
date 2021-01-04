@@ -6,6 +6,8 @@ A simple example showing how to extract a file from Salesforce using MuleSoft An
 I wanted to build another MuleSoft Anypoint integration that would allow me to analyze files already uploaded to Salesforce. 
 It was suprisingly difficult to find an example of the process, hence this project to show how you can extract a file out of Salesforce and save it to disk.
 
+<img href="https://github.com/andrewwhitten/template-sfdc2localdisk-file-download/images/file_download_flow.png"></img>
+
 # Process
 
 Step 1) Use your SOQL powers to find the Content Version ID of the file you are looking for. Your file will have a Salesforce ID that refers to the ContentDocument. You want the row in the ContentVersion Object that refers to this ID as well as IsLatest.
