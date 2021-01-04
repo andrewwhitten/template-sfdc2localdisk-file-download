@@ -14,7 +14,12 @@ Step 1) Use your SOQL powers to find the Content Version ID of the file you are 
 
 Step 2) Configure a <A HREF="https://docs.mulesoft.com/salesforce-connector/9.8/salesforce-connector-reference#Retrieve">Salesforce Retrieve step</A>, and pass the file's ContentVersionId in to extract the data out of the <A href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_contentversion.htm">ContentVersion object</A>.
 
+<img src="https://github.com/andrewwhitten/template-sfdc2localdisk-file-download/blob/main/images/Step2.png"></img>
+
 Step 3) Extract the file data (as a Base64 string) and convert it to Binary
+
+<img src="https://github.com/andrewwhitten/template-sfdc2localdisk-file-download/blob/main/images/Step3.png"></img>
+
 
 # Findings
 
