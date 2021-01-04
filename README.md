@@ -6,7 +6,7 @@ A simple example showing how to extract a file from Salesforce using MuleSoft An
 I wanted to build another MuleSoft Anypoint integration that would allow me to analyze files already uploaded to Salesforce. 
 It was suprisingly difficult to find an example of the process, hence this project to show how you can extract a file out of Salesforce and save it to disk.
 
-<img src="https://github.com/andrewwhitten/template-sfdc2localdisk-file-download/images/file_download_flow.png"></img>
+<img src="https://github.com/andrewwhitten/template-sfdc2localdisk-file-download/blob/main/images/file_download_flow.png"></img>
 
 # Process
 
