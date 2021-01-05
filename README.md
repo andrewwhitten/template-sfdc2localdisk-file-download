@@ -14,7 +14,7 @@ Therefore this simple project to show how you can extract a file out of Salesfor
 
 2) Set the values of the Global Elements to valid Salesforce login and File Locations (Salesforce login requires read access to that file)
 
-3) Find the ContentVersionID (see process below)
+3) Find the ContentVersionID (see Process below)
 
 4) Debug or run, and invoke it from your favorite REST tool:
 
@@ -25,7 +25,7 @@ Therefore this simple project to show how you can extract a file out of Salesfor
 
 This is just a description of the process to do this from begining to end:
 
-Step 1) Your file will have a Salesforce ID that refers to the ContentDocument. You want the row in the ContentVersion Object that refers to this ID as well as IsLatest (or you may select an older version by mistake). An easy way is just look at the URL in the file details, but you could SOQL it instead:
+Step 1) Your file will have a Salesforce ID that refers to the ContentDocument. You want the row in the ContentVersion Object that refers to this ID as well as IsLatest (or you may select an older version by mistake). An easy way is just look at the URL in Salesforce's file details, but you could SOQL it instead:
 
 <img src="https://github.com/andrewwhitten/template-sfdc2localdisk-file-download/blob/main/images/Step 1a.png"></img>
 
@@ -44,6 +44,8 @@ Step 4) Extract the file data (as a Base64 string) and convert it to Binary
 
 # Findings
 
-1) A good developer will use streaming to get files.... but I'm not too interested in that for this exercise. Salesforce has org based limits on file size, but this method can download a 60MB PDF fast enough.
+1) A good developer will use streaming to get files.... but I'm not too interested in that for this exercise. Salesforce has org based limits on file size, but this method can download a 20MB PDF fast enough.
 
-2) Downloading this way doesn't increment the file's download count
+2) Downloading this way doesn't increment the file's download count.
+
+3) This Flow could be shortened a great deal, however this way is easier to examine each step and output the log.
