@@ -49,3 +49,5 @@ Step 4) Extract the file data (as a Base64 string) and convert it to Binary
 2) Downloading this way doesn't increment the file's download count.
 
 3) This Flow could be shortened a great deal, however this way is easier to examine each step and output the log.
+
+4) You could return the file in the service itself, rather than save to local disk. Go for it.
