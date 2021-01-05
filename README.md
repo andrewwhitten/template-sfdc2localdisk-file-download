@@ -16,7 +16,7 @@ Therefore this simple project to show how you can extract a file out of Salesfor
 
 3) Debug or run, and invoke it from your favorite REST tool:
 
-<img src="https://github.com/andrewwhitten/template-sfdc2localdisk-file-download/blob/main/images/Run.png" width="300"></img>
+<img src="https://github.com/andrewwhitten/template-sfdc2localdisk-file-download/blob/main/images/Run.png" width="500"></img>
 
 
 # Process
@@ -25,11 +25,11 @@ This is just a description of the process to do this from begining to end:
 
 Step 1) Your file will have a Salesforce ID that refers to the ContentDocument. You want the row in the ContentVersion Object that refers to this ID as well as IsLatest (or you may select an older version by mistake). An easy way is just look at the URL in the file details, but you could SOQL it instead:
 
-<img src="https://github.com/andrewwhitten/template-sfdc2localdisk-file-download/blob/main/images/Step1a.png"></img>
+<img src="https://github.com/andrewwhitten/template-sfdc2localdisk-file-download/blob/main/images/Step 1a.png"></img>
 
 Step 2) Use your SOQL powers to find the Content Version ID of the file you are looking for:
 
-<img src="https://github.com/andrewwhitten/template-sfdc2localdisk-file-download/blob/main/images/Step1b.png"></img>
+<img src="https://github.com/andrewwhitten/template-sfdc2localdisk-file-download/blob/main/images/Step 1b.png"></img>
 
 Step 2) Configure a <A HREF="https://docs.mulesoft.com/salesforce-connector/9.8/salesforce-connector-reference#Retrieve">Salesforce Retrieve step</A>, and pass the file's ContentVersionId in to extract the data out of the <A href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_contentversion.htm">ContentVersion object</A>.
 
