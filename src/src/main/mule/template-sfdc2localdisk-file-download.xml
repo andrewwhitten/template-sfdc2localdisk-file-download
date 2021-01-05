@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="9138a750-ca8b-46a9-857f-9db2ab0323f2" >
+		<salesforce:basic-connection username="filevalidate@testorg.org" password="123" securityToken="123" />
+	</salesforce:sfdc-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="831c0db2-4977-4ce7-b2c3-ce08b88d1e15" >
+		<file:connection workingDir="/Users/andrew/temp/sfdcfile" />
+	</file:config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="1537fe0a-b24a-4731-8168-5a796a2e77a6" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="fileDownload" doc:id="7eaef38f-9a8f-4c97-a7c0-88cb5dd720fe" >
+		<http:listener doc:name="File_Download_Listener" doc:id="3a9d4cd3-1633-484d-bcf5-6a269976fb2d" config-ref="HTTP_Listener_config" path="FileDownload" allowedMethods="GET" />
+		<logger level="INFO" doc:name="Logger contentVersionId" doc:id="7e7b4273-d05f-4a48-bf22-6cb8954577d0" message="#[vars.contentVersionId]" />
+		<set-variable value="NULL" doc:name="Set Variable fileContents" doc:id="594b8bf0-7b62-4b9d-af8e-f9400294e7ae" variableName="fileContents" />
+		<set-variable value="#[%dw 2.0
+import * from dw::core::Strings
+---
+{
+  &quot;Fields&quot;: [
+    &quot;VersionData&quot;, &quot;Title&quot;, &quot;FileExtension&quot;, &quot;ContentSize&quot;
+  ],
+  &quot;Ids&quot;: [
+    attributes.queryString replace '&quot;' with ''
+  ]
+}]" doc:name="Set Variable retrieveQuery" doc:id="cbc3abdf-1d20-4aa4-92ac-4dab920508f4" variableName="retrieveQuery" />
+		<logger level="INFO" doc:name="Logger retrieveQuery" doc:id="b23394a6-7f4e-4c09-b2e7-c98b11c00c67" message="#[vars.retrieveQuery]" />
+		<salesforce:retrieve type="ContentVersion" doc:name="File_Retrieve" doc:id="ddbe1fc2-6886-4e26-bbae-2a58fa04114c" config-ref="Salesforce_Config" readTimeout="2" readTimeoutUnit="MINUTES" target="fileContents" >
+			<salesforce:retrieve-request ><![CDATA[#[vars.retrieveQuery]]]></salesforce:retrieve-request>
+		</salesforce:retrieve>
+		<logger level="INFO" doc:name="Logger" doc:id="e1b126b6-10d5-4997-9a92-c22258201a5d" message="#[vars.fileContents.VersionData]" />
+		<set-variable value="#[%dw 2.0
+import * from dw::core::Binaries
+output application/octet-stream
+---
+fromBase64(vars.fileContents.VersionData[0] as String) as Binary]" doc:name="Set Variable fileContentsBinary" doc:id="b8da5c48-a549-4b04-94ae-2323ea7d1828" variableName="fileContentsBinary" />
+		<set-variable value='#[%dw 2.0
+---
+vars.fileContents.Title[0] ++ "." ++ vars.fileContents.FileExtension[0]]' doc:name="Set Variable fileName" doc:id="9cfd6b65-2404-4198-993f-24001d7bbc5c" variableName="fileName" />
+		<file:write doc:name="Write" doc:id="3153527f-29b4-455e-a708-4149eb75269e" config-ref="File_Config" path="#[vars.fileName]" >
+			<file:content ><![CDATA[#[vars.fileContentsBinary]]]></file:content>
+		</file:write>
+		<set-payload value="#[%dw 2.0
+---
+vars.fileContents.Title[0] ++ ' with file size: ' ++ vars.fileContents.ContentSize[0] as String]" doc:name="Set Payload" doc:id="5149561f-b28a-46cc-8269-5a78f1fa6e09" />
+	</flow>
+</mule>
