@@ -1,5 +1,5 @@
 # template-sfdc2localdisk-file-download
-A simple example showing how to extract a file from Salesforce using the MuleSoft Anypoint 4.3 runtime
+A simple example showing how to extract (or download) a file from Salesforce using the MuleSoft Anypoint 4.3 runtime and save it to local disk
 
 # Background
 
