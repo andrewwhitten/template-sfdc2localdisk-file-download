@@ -3,8 +3,8 @@ A simple example showing how to extract (or download) a file from Salesforce usi
 
 # Background
 
-I wanted to build another MuleSoft Anypoint integration that would allow me to analyze files already uploaded to Salesforce, and found it was suprisingly difficult to find an example of how to do this.
-Therefore this simple project to show how you can extract a file out of Salesforce and save it to disk.
+I wanted to build another MuleSoft Anypoint integration that would allow me to analyze files already uploaded to Salesforce, and found it was suprisingly difficult to find an example of how to get a file.
+Therefore I created this simple project to show how you can extract a file out of Salesforce and save it to disk. No more.
 
 # Get Started
 
