@@ -42,7 +42,7 @@ Step 4) Extract the file data (as a Base64 string) and convert it to Binary
 <img src="https://github.com/andrewwhitten/template-sfdc2localdisk-file-download/blob/main/images/Step3.png" width="550"></img>
 
 
-# Findings
+# Last thoughts
 
 1) A good developer will use streaming to get files.... but I'm not too interested in that for this exercise. Salesforce has org based limits on file size, but this method can download a 20MB PDF fast enough.
 
@@ -51,3 +51,5 @@ Step 4) Extract the file data (as a Base64 string) and convert it to Binary
 3) This Flow could be shortened a great deal, however this way is easier to examine each step and output the log.
 
 4) You could return the file in the service itself, rather than save to local disk. Go for it.
+
+5) This project doesn't have a lot of good practices that Anypoint should have, such as error handling, input validation, etc. It shouldn't be used for Production. The intention is just to show how to get a file.
